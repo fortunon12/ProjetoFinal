@@ -14,7 +14,7 @@ import FormScreen  from './src/screens/Form';
 import List  from './src/screens/List';
 import Profile  from './src/screens/Profile';
 import Details  from './src/screens/Details';
-import AuthContext from './src/AuthContext';
+import {AuthProvider} from './src/AuthContext';
 import { TextVagas } from './src/screens/List/styles';
 import LoginScreen from './src/screens/LoginScreen';
 import VagasList from './src/screens/VagaList';
@@ -25,35 +25,6 @@ const HomeStack = createNativeStackNavigator();
 
 
 function Auth(){
-  
-  const App = () => {
-    const [user, setUser ] = useState(null);
-  
-    useEffect(() => {
-      const loadUser  = async () => {
-        const storedUser  = await AsyncStorage.getItem('user');
-        if (storedUser ) {
-          setUser (JSON.parse(storedUser ));
-        }
-      };
-  
-      loadUser ();
-    }, []);
-  
-    return (
-      <AuthContext.Provider value={{ user, setUser  }}>
-        <NavigationContainer>
-          <Stack.Navigator>
-            {user ? (
-              <Stack.Screen name="Vagas" component={VagasList} />
-            ) : (
-              <Stack.Screen name="Login" component={LoginScreen} />
-            )}
-          </Stack.Navigator>
-        </NavigationContainer>
-      </AuthContext.Provider>
-    );
-  };
 
   return (
     <Tab.Navigator
@@ -96,7 +67,8 @@ function Auth(){
 
 export default function App() {
   return (
-    <ThemeProvider theme={theme}>
+
+       <ThemeProvider theme={theme}>
       <StatusBar style="auto" />
       <NavigationContainer>
         <Stack.Navigator initialRouteName='Login' screenOptions={{ headerShown: false }}>
@@ -105,7 +77,9 @@ export default function App() {
           <Stack.Screen name="Auth" component={Auth} />
         </Stack.Navigator>
       </NavigationContainer>
-    </ThemeProvider>
+      </ThemeProvider>
+    
+   
   );
 }
 

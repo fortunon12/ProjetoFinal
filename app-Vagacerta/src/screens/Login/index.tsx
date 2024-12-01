@@ -23,11 +23,11 @@ export default function Login({ navigation }) {
   const handleLogin = async () => {
     try {
       const response = await api.get("/usuarios");
-      console.log(response)
-      const users = response.data;
-
+      console.log(response);
+      const users = response.data.usuarios; // Acesse a propriedade 'usuarios'
+  
       const user = users.find((u) => u.email === email && u.senha === senha);
-
+  
       if (user) {
         navigation.navigate("Auth", { screen: "Home" });
       } else {

@@ -6,6 +6,7 @@ const vagasRoutes = require('./routes/vagas');
 const cors = require('cors');
 
 const app = express();
+app.use(cors());
 app.use(bodyParser.json());
 
 // Sincronizar o banco de dados
